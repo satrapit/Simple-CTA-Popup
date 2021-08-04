@@ -1,6 +1,6 @@
 === Simple CTA Popup ===
 Contributors: 
-Donate link: https://arsamnet.com/
+link: https://arsamnet.com/
 Tags: 
 Requires at least: 3.0.1
 Tested up to: 3.4

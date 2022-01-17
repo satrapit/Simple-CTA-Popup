@@ -1,126 +1,115 @@
 /**
- * All of the CSS for your public-facing functionality should be
- * included in this file.
+ * All of the CSS
  */
 
-.hide {
-  height: 0 !important;
+.cta_notif_content {
+    background-color: #ffffff;
+    position: fixed;
+    z-index: 20000;
+    width: 450px;
+    transform: translate(50%, 0px);
+    transition: all 0.9s ease-in-out;
+    box-shadow: 0 2px 3px 0 rgb(0 0 0 / 16%), 0 0px 3px 0 rgb(0 0 0 / 12%);
+    padding: 10px 15px 0 15px;
 }
 
+.cta_notif_content.tl {
+    top: -150px;
+    right: 80%;
+}
 
-.cta_notif_content {
-    background-color: #01d5d9;
-    text-align: center;
-    position: fixed;
-    bottom: 0;
-    z-index: 20000;
-    width: 100%;
-    right: 0;
-    height: 110px;
+.cta_notif_content.tc {
+    top: -150px;
+    right: 50%;
+}
+
+.cta_notif_content.tr {
+    top: -150px;
+    right: 20%;
+}
+
+.cta_notif_content.bl {
+    bottom: -150px;
+    right: 80%;
+}
+
+.cta_notif_content.bc {
+    bottom: -150px;
+    right: 50%;
+}
+
+.cta_notif_content.br {
+    bottom: -150px;
+    right: 20%;
+}
+
+.cta_notif_content.tl.expand,
+.cta_notif_content.tc.expand,
+.cta_notif_content.tr.expand {
+    top:0;
+}
+
+.cta_notif_content.bl.expand,
+.cta_notif_content.bc.expand,
+.cta_notif_content.br.expand {
+    bottom:0;
+}
+
+.cta_notif_button_wrapper {
+    background: #eee;
+    margin: 0 -15px;
 }
 
 .cta_notif_button {
-    border-radius: 25px;
+    border-radius: 4px;
     background: #004e6e;
-    margin: 5px 10px 15px;
-    font-size: 13px;
-    padding: 7px 22px;
-    color: #FFFFFF;
+    margin: 10px 15px;
+    font-size: 12px;
+    padding: 0px 12px;
+    color: #FFFFFF !important;
     cursor: pointer;
     text-align: center;
     display: inline-block;
+    font-weight: 500 !important;
+    bottom: 0;
+    line-height: 30px;
+}
+
+.cta_notif_button:hover {
+    background: #1f7294;
+    color: #ffffff;
 }
 
 .cta_notif_data {
-    padding: 13px 0 5px 0;
-    text-align: center;
+    min-height: 30px;
+    padding-bottom: 10px;
 }
 
 .cta_notif_headline {
     font-weight: 500;
-    color: #FFFFFF;
+    color: #585f66;
+    font-size: 14px;
+    line-height: 29px;
+    padding-left: 20px;
 }
 
-
-
-
-/* Style the Image Used to Trigger the Modal */
-#myImg {
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
+.cta_notif_close {
+    color: #999999;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 500;
+    top: 0;
+    height: 40px;
+    width: 40px;
+    left: 0;
+    display: block;
+    position: absolute;
+    font-size: 20px;
+    line-height: 40px;
 }
 
-#myImg:hover {opacity: 0.7;}
-
-/* The Modal (background) */
-.popup-modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 100000;
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-}
-
-/* Modal Content (Image) */
-.popup-modal-content {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-}
-
-/* Caption of Modal Image (Image Text) - Same Width as the Image */
-#caption {
-  margin: auto;
-  display: block;
-  width: 80%;
-  max-width: 700px;
-  text-align: center;
-  color: #ccc;
-  padding: 10px 0;
-  height: 150px;
-}
-
-/* Add Animation - Zoom in the Modal */
-.popup-modal-content, #caption {
-  animation-name: zoom;
-  animation-duration: 0.6s;
-}
-
-@keyframes zoom {
-  from {transform:scale(0)}
-  to {transform:scale(1)}
-}
-
-/* The Close Button */
-.popup_close {
-  position: absolute;
-  top: 15px;
-  right: 35px;
-  color: #f1f1f1;
-  font-size: 40px;
-  font-weight: bold;
-  transition: 0.3s;
-  opacity: 1;
-}
-
-.popup_close:hover,
-.popup_close:focus {
-  color: #bbb;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px){
-  .popup-modal-content {
-    width: 100%;
-  }
+@media only screen and (max-width: 922px) {
+    .cta_notif_content {
+        width: 90%;
+    }
 }

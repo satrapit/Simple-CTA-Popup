@@ -9,7 +9,7 @@
  * Plugin Name:       Simple CTA Popup
  * Plugin URI:        https://arsamnet.com/simple-cta-popup/
  * Description:       Wordpress simple call to action popup management.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Majid Barkhordari
  * Author URI:        https://arsamnet.com/
  * License:           GPL-2.0+

@@ -89,6 +89,25 @@ class Simple_CTA_Popup {
 		$this->define_public_hooks();
 		$this->regiseter_custom_post_types();
 
+        function simple_cta_popup_run(){
+            $args = array(
+                'post_type'     => 'simple_cta_popup',
+                'post_status'   => 'publish',
+            );
+            $popups = wp_get_recent_posts($args);
+            
+            foreach ($popups as $popup) {
+                $first = true;
+                $popupPageID = get_post_meta($popup["ID"], '_simple_cta_popup_page', true);
+                if ( $popupPageID == get_the_ID() || $popupPageID == 0 ) {
+                    echo do_shortcode("[cta id=" . $popup["ID"] . "]");
+                    $first = false;
+                }
+                if(!$first) break;
+            }
+        }
+        add_action('wp_footer', 'simple_cta_popup_run');
+
 	}
 
 	/**

@@ -96,7 +96,7 @@ class Simple_CTA_Popup_Public {
 		 * class.
 		 */
 
-		wp_enqueue_script( $this->simple_cta_popup, plugin_dir_url( __FILE__ ) . 'js/simple-cta-popup-public.js', array( 'jquery' ), $this->version, false );
+		// wp_enqueue_script( $this->simple_cta_popup, plugin_dir_url( __FILE__ ) . 'js/simple-cta-popup-public.js', array( 'jquery' ), $this->version, false );
 
 	}
 

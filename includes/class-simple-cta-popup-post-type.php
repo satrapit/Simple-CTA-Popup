@@ -26,21 +26,21 @@
     public function register_simple_cta_popups_post_type() {
 
         $labels = array(
-			'name'                  => _x( 'پاپ‌آپ‌ها', 'Post Type General Name', 'simple-cta-popup' ),
+			'name'                  => _x( 'نوتیفیکشن‌ها', 'Post Type General Name', 'simple-cta-popup' ),
 			'singular_name'         => _x( 'Simple CTA Popup', 'Post Type Singular Name', 'simple-cta-popup' ),
-			'menu_name'             => __( 'پاپ‌آپ‌ها', 'simple-cta-popup' ),
-			'all_items'             => __( 'همه پاپ‌آپ‌ها', 'simple-cta-popup' ),
-			'add_new_item'          => __( 'پاپ‌آپ جدید', 'simple-cta-popup' ),
+			'menu_name'             => __( 'نوتیفیکشن‌ها', 'simple-cta-popup' ),
+			'all_items'             => __( 'همه نوتیفیکشن‌ها', 'simple-cta-popup' ),
+			'add_new_item'          => __( 'نوتیفیکشن جدید', 'simple-cta-popup' ),
 			'add_new'               => __( 'افزودن جدید', 'simple-cta-popup' ),
-			'new_item'              => __( 'پاپ‌آپ جدید', 'simple-cta-popup' ),
+			'new_item'              => __( 'نوتیفیکشن جدید', 'simple-cta-popup' ),
 			'edit_item'             => __( 'ویرایش', 'simple-cta-popup' ),
 			'update_item'           => __( 'بروزرسانی', 'simple-cta-popup' ),
 			'view_item'             => __( 'نمایش', 'simple-cta-popup' ),
 			'view_items'            => __( 'نمایش همه', 'simple-cta-popup' ),
 			'search_items'          => __( 'جستجو', 'simple-cta-popup' ),
-			'not_found'             => __( 'هیچ پاپ‌آپی وجود ندارد', 'simple-cta-popup' ),
+			'not_found'             => __( 'هیچ نوتیفیکشنی وجود ندارد', 'simple-cta-popup' ),
 			'not_found_in_trash'    => __( 'Not found in Trash', 'simple-cta-popup' ),
-			'featured_image'        => __( 'تصویر پاپ‌آپ', 'simple-cta-popup' ),
+			'featured_image'        => __( 'تصویر نوتیفیکشن', 'simple-cta-popup' ),
 			'set_featured_image'    => __( 'انتخاب تصویر', 'simple-cta-popup' ),
 			'remove_featured_image' => __( 'پاک کردن تصویر', 'simple-cta-popup' ),
 			'use_featured_image'    => __( 'Use as featured image', 'simple-cta-popup' ),
@@ -55,7 +55,7 @@
 			'label'                 => __( 'Simple CTA Popup', 'simple-cta-popup' ),
 			'description'           => __( 'Simple CTA Popup', 'simple-cta-popup' ),
 			'labels'                => $labels,
-			'supports'              => array( 'title', 'thumbnail' ),
+			'supports'              => array( 'title' ),
 			'hierarchical'          => false,
 			'public'                => true,
 			'show_ui'               => true,
@@ -79,7 +79,7 @@
 
         add_meta_box(
             'setting_meta_box',
-            __( 'تنظیمات پاپ‌آپ', 'simple-cta-popup' ),
+            __( 'تنظیمات نوتیفیکشن', 'simple-cta-popup' ),
             array($this, 'setting_meta_box_callback'),
             'simple_cta_popup',
             'normal',
@@ -95,8 +95,10 @@
         $popup_url = get_post_meta( $post->ID, '_simple_cta_popup_url', true );
         $notification_text = get_post_meta( $post->ID, '_simple_cta_popup_notification_text', true );
         $notification_button = get_post_meta( $post->ID, '_simple_cta_popup_notification_button', true );
+        $notification_page = get_post_meta( $post->ID, '_simple_cta_popup_page', true );
+        $notification_location = get_post_meta( $post->ID, '_simple_cta_popup_location', true );
         
-        echo '
+        $simple_cta_popup_form = '
             <div class="setting_box">
                 <style scoped>
                     .setting_box {
@@ -117,7 +119,7 @@
                     }
                 </style>
                 <p class="meta-options setting_field">
-                    <label for="simple_cta_popup_url">' . __( "لینک پاپ‌آپ", "simple-cta-popup" ) . ':</label>
+                    <label for="simple_cta_popup_url">' . __( "لینک نوتیفیکشن", "simple-cta-popup" ) . ':</label>
                     <input type="text" id="simple_cta_popup_url" name="simple_cta_popup_url" value="' . esc_url( $popup_url ) . '" size="30" />
                 </p>
                 <p class="meta-options setting_field">
@@ -128,8 +130,51 @@
                     <label for="simple_cta_popup_notification_button">' . __( "متن دکمه", "simple-cta-popup" ) . ':</label>
                     <input type="text" id="simple_cta_popup_notification_button" name="simple_cta_popup_notification_button" value="' . $notification_button . '" size="30" />
                 </p>
+                <p class="meta-options setting_field">
+                    <label for="">' . __( "انتخاب صفحه", "simple-cta-popup" ) . ':</label>
+                    ' . wp_dropdown_pages( array(
+                        'name'              => 'simple_cta_popup_notification_page',
+                        'id'                => 'simple_cta_popup_notification_button',
+                        'class'             => 'cta_notif_page_selector',
+                        'child_of'          => 0,
+                        'sort_order'        => 'ASC',
+                        'sort_column'       => 'post_title',
+                        'hierarchical'      => 1,
+                        'post_type'         => 'page',
+                        'selected'          => $notification_page,
+                        'show_option_none'  => __( "همه صفحات", "simple-cta-popup" ),
+                        'option_none_value' => 0,
+                        'echo'              => 0,
+                    ) )
+                    . '
+                </p>
+                <p class="meta-options setting_field">
+                    <label for="simple_cta_popup_location">' . __( "موقعیت نوتیفیکشن", "simple-cta-popup" ) . ':</label>
+                    <select name="simple_cta_popup_location" class="cta_notif_page_selector" id="simple_cta_popup_location">
+        ';
+
+        $locations = array (
+            array("tr", "بالا راست"),
+            array("tc", "بالا وسط"),
+            array("tl", "بالا چپ"),
+            array("br", "پایین راست"),
+            array("bc", "پایین وسط"),
+            array("bl", "پایین چپ")
+        );
+
+        for ($row = 0; $row < 6; $row++) {
+            $simple_cta_popup_form .= '
+                    <option value="' . $locations[$row][0] . '"' . ($locations[$row][0] == $notification_location ? 'selected' : '') . '>' . $locations[$row][1] . '</option>
+            ';
+        }
+
+        $simple_cta_popup_form .= '
+                    </select>
+                </p>
             </div>
         ';
+
+        echo $simple_cta_popup_form;
 
     }
     
@@ -165,6 +210,8 @@
         $popup_url = esc_url_raw( $_POST['simple_cta_popup_url'] );
         $notification_text = $_POST['simple_cta_popup_notification_text'];
         $notification_button = $_POST['simple_cta_popup_notification_button'];
+        $notification_page = $_POST['simple_cta_popup_notification_page'];
+        $notification_location = $_POST['simple_cta_popup_location'];
         
         // Update the meta fields in the database, or clean up after ourselves.
         if ( empty( $popup_url ) ) {
@@ -184,6 +231,14 @@
         } else {
             update_post_meta( $post_id, '_simple_cta_popup_notification_button', $notification_button );
         }
+        
+        if ( empty( $notification_location ) ) {
+            delete_post_meta( $post_id, '_simple_cta_popup_location' );
+        } else {
+            update_post_meta( $post_id, '_simple_cta_popup_location', $notification_location );
+        }
+
+        update_post_meta( $post_id, '_simple_cta_popup_page', $notification_page );
     }
 
 }
